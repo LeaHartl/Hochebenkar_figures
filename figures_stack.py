@@ -590,8 +590,6 @@ def FlowlineScarp(demsHEK, ds):
     df['mx'] = val.loc[1, :]
     df['mn'] = mn
     df.loc[1953, 'mn'] = np.nan
-    df['magn'] = df['mx'] - df['mn']
-    df['length'] = df['distmn'] - df['distmx']
 
     fll = pd.DataFrame(index=df.index.values[1:])
     for n in df['distmx'].index.values[1:]:
@@ -601,6 +599,9 @@ def FlowlineScarp(demsHEK, ds):
     # manually adjust max value for 2021 round 2, the shift is not catching it in this case.
     df.loc[2021, 'distmx'] = 298
     fll.loc[2021, 'max'] = 2477.22
+
+    df['magn'] = df['mx'] - df['mn']
+    df['length'] = df['distmn'] - df['distmx']
 
     # start figure
     fig = plt.figure(figsize=(14, 6))
